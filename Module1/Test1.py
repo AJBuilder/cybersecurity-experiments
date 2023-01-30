@@ -34,7 +34,7 @@ def mergesort(filename):
         if len(list) == 1:
             return list
         else:
-            center = len(list) / 2
+            center = int(len(list) / 2)
             half1 = ms(list[0:center])
             half2 = ms(list[center:])
             
@@ -56,7 +56,7 @@ def mergesort(filename):
     numbers = file.readlines()
     for i in range(len(numbers)):
         numbers[i] = eval(numbers[i])
-    print("Numbers read: " + str(numbers))
+    #print("Numbers read: " + str(numbers))
     print("Numbers sorted: " + str(ms(numbers)))
     
     file.close()
@@ -82,7 +82,7 @@ def quicksort(filename):
     def partition(arr):
         less = []
         greater = []
-        pivot = arr[len(arr) / 2]
+        pivot = arr[int(len(arr) / 2)]
         for element in arr:
             if element < pivot:
                 less.append(element)
@@ -98,7 +98,7 @@ def quicksort(filename):
     numbers = file.readlines()
     for i in range(len(numbers)):
         numbers[i] = eval(numbers[i])
-    print("Numbers read: " + str(numbers))
+    #print("Numbers read: " + str(numbers))
     print("Numbers sorted: " + str(sort(numbers)))
     
     file.close()
@@ -111,6 +111,7 @@ class BinarySearchTreeNode:
         self.left = None
         self.right = None
         self.value = value
+        
 
     def insert(self, value):
         """
@@ -118,20 +119,55 @@ class BinarySearchTreeNode:
         If this value exists, tell the user.
         If not, insert it.
         """
-        pass
+        if value > self.value:
+            if self.right == None:
+                self.right = BinarySearchTreeNode(value)
+            else:
+                return self.right.insert(value)
+        elif value < self.value:
+            if self.left == None:
+                self.left = BinarySearchTreeNode(value)
+            else:
+                return self.left.insert(value)
+        else:
+            return False
+            
+        return True
 
     def search(self, value):
         """
         Search a value.
         Tell the user the result.
         """
-        pass
+        
+        if self.value == value:
+            return True
+        else:
+            leftResult = False
+            rightResult = False
+            if self.left != None:
+                leftResult = self.left.search(value)
+            if self.right != None:
+                rightResult = self.left.search(value)
+            return leftResult or rightResult
+                
 
     def inorder(self):
         """
         Print the tree starting from this node with in-order traversal
         """
+        def ioTraversal(node):
+            if node.left != None:
+                ioTraversal(node.left)
+            print (node.value)
+            if node.right != None:
+                ioTraversal(node.right)
+            pass
+        
+        print("In-order Traversal:")
+        ioTraversal(self)
         pass
+            
 
 
 if __name__ == '__main__':
@@ -157,3 +193,17 @@ if __name__ == '__main__':
 
     pass
 
+# Output
+# --------------------
+# 
+# Numbers sorted: [62, 65, 77, 90, 94, 95, 120, 124, 126, 160, 161, 187, 187, 215, 218, 236, 239, 412, 453, 471, 477, 481, 525, 609, 619, 658, 701, 735, 853, 915]
+# Numbers sorted: [62, 65, 77, 90, 94, 95, 120, 124, 126, 160, 161, 187, 215, 218, 236, 239, 412, 453, 471, 477, 481, 525, 609, 619, 658, 701, 735, 853, 915]
+# In-order Traversal:
+# 7
+# 10
+# 23
+# 25
+# 28
+# 34
+# 56
+# 90
