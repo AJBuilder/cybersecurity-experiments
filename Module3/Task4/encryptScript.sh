@@ -19,11 +19,11 @@ echo ""
 echo "####################Start####################"
 echo "Do RSA dec 10,000 times"
 echo "command line:"
-echo "openssl pkeyutl -decrypt -passin pass:password -pubin -inkey public.key -in m_enc.txt -out m_dec.txt"
+echo "openssl pkeyutl -decrypt -passin pass:password -pubin -inkey private.key -in m_enc.txt -out m_dec.txt"
 start2=`date '+%s'`    
 for i in $(seq 0 10000)
 do
-openssl pkeyutl -decrypt -passin pass:password -pubin -inkey public.key -in m_enc.txt -out m_dec.txt 1> /dev/null 2>&1
+openssl pkeyutl -decrypt -passin pass:password -pubin -inkey private.key -in m_enc.txt -out m_dec.txt 1> /dev/null 2>&1
 done
 finish2=`date '+%s'`
 used2=`echo "$finish2-$start2" | bc`
